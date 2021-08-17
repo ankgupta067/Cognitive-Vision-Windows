@@ -58,7 +58,6 @@ namespace VisionAPI_WPF_Samples
     public partial class UploadImage : ImageScenarioPage
     {
         private TagResult analysisResult;
-        private List<string> finalTags = new List<string>();
         public UploadImage()
         {
             InitializeComponent();
@@ -153,7 +152,7 @@ namespace VisionAPI_WPF_Samples
             string[] userTagList = userDefinedTags.ToString().Split(',');
             foreach (string tag in userTagList)
             {
-                if (!string.IsNullOrWhiteSpace(tag) && !finalTags.Contains(tag.Trim()))
+                if (!string.IsNullOrWhiteSpace(tag) && !tags.Any(t => t.TagValue == tag.Trim().ToLower()))
                 {
                     tags.Add(new Tag()
                     {
