@@ -39,6 +39,7 @@ using Microsoft.Azure.CognitiveServices.Vision.ComputerVision;
 using Microsoft.Azure.CognitiveServices.Vision.ComputerVision.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 
@@ -51,11 +52,13 @@ namespace VisionAPI_WPF_Samples
     /// <summary>
     /// Interaction logic for UploadImage.xaml.
     /// </summary>
+    /// <summary>
+    /// Interaction logic for UploadImage.xaml.
+    /// </summary>
     public partial class UploadImage : ImageScenarioPage
     {
         private TagResult analysisResult;
         private List<string> finalTags = new List<string>();
-
         public UploadImage()
         {
             InitializeComponent();
@@ -74,6 +77,7 @@ namespace VisionAPI_WPF_Samples
                 chk.Tag = item;
                 _imageTags.Children.Add(chk);
             }
+
         }
 
         /// <summary>
@@ -127,6 +131,7 @@ namespace VisionAPI_WPF_Samples
             _status.Text = "Analyzing Done";
 
             DynamicCreatedCheckbox(analysisResult);
+            _tagsGrid.Visibility = System.Windows.Visibility.Visible;
         }
 
         private void SubmitTagsButton_Click(object sender, System.Windows.RoutedEventArgs e)
@@ -138,8 +143,8 @@ namespace VisionAPI_WPF_Samples
                 {
                     tags.Add(new Tag()
                     {
-                        TagValue = item.Content.ToString(),
-                        Confidence = ((ImageTag)(item.Tag)).Confidence
+                        TagValue = item.Content.ToString().ToLower(),
+                        Confidence = ((ImageTag) (item.Tag)).Confidence
                     });
                 }
             }
@@ -152,19 +157,40 @@ namespace VisionAPI_WPF_Samples
                 {
                     tags.Add(new Tag()
                     {
-                        TagValue = tag.Trim(),
+                        TagValue = tag.Trim().ToLower(),
                         Confidence = 1
                     });
                 }
 
 
             }
+
             Log("Data Ready to Upload to DB");
 
             var result = SqlHelper.SaveImage(URLTextBox.Text, tags);
             _status.Text = result.Item1 ? "Data saved in DB" : $"Error in saving data to DB - {result.Item2}";
 
             Log("Operation Completed");
+
+        }
+
+        private void GetImages_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            var tags = new List<string>(){"laptop","Mac"};
+            var images = SqlHelper.GetImages(tags);
+
+            foreach (string tag in tags)
+            {
+                foreach (ImageData image in images)
+                {
+                    if (image.confidenceByTag.ContainsKey(tag.ToLower()))
+                    {
+                        image.score += image.confidenceByTag[tag.ToLower()];
+                    }
+                }
+            }
+
+            var result = images.OrderByDescending(i => i.score).Take(5).ToList<ImageData>();
 
         }
     }
