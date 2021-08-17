@@ -67,6 +67,7 @@ namespace VisionAPI_WPF_Samples
                 new Scenario { Title = "Recognize Text V2 (English)", PageClass = typeof(TextRecognitionPage) },
                 new Scenario { Title = "Get Thumbnail", PageClass = typeof(ThumbnailPage) },
                 new Scenario { Title = "Get AreaOfInterest", PageClass = typeof(AreaOfInterestPage) },
+                new Scenario { Title = "Upload Image", PageClass = typeof(UploadImage) }
             };
         }
     }

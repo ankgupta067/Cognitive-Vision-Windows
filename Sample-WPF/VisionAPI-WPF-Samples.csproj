@@ -186,6 +186,9 @@
     <Compile Include="AnalyzePage.xaml.cs">
       <DependentUpon>AnalyzePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UploadImage.xaml.cs">
+      <DependentUpon>UploadImage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="VisionAPI-WPF-Samples\Properties\Resources.Designer.cs" />
     <Compile Include="VisionAPI-WPF-Samples\Properties\Settings.Designer.cs" />
     <Compile Include="MainWindow.xaml.cs">
@@ -241,6 +244,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UploadImage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
