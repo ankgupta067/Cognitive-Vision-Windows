@@ -31,17 +31,17 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-
 // -----------------------------------------------------------------------
 // KEY SAMPLE CODE STARTS HERE
 // Use the following namespace for ComputerVisionClient.
 // -----------------------------------------------------------------------
 using Microsoft.Azure.CognitiveServices.Vision.ComputerVision;
 using Microsoft.Azure.CognitiveServices.Vision.ComputerVision.Models;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Windows.Controls;
+
 // -----------------------------------------------------------------------
 // KEY SAMPLE CODE ENDS HERE
 // -----------------------------------------------------------------------
@@ -55,6 +55,7 @@ namespace VisionAPI_WPF_Samples
     {
         private TagResult analysisResult;
         private List<string> finalTags = new List<string>();
+
         public UploadImage()
         {
             InitializeComponent();
@@ -66,13 +67,13 @@ namespace VisionAPI_WPF_Samples
         private void DynamicCreatedCheckbox(TagResult tagList)
         {
             _imageTags.Children.Clear();
-           foreach(var item in tagList.Tags)
-           {
+            foreach (var item in tagList.Tags)
+            {
                 CheckBox chk = new CheckBox();
                 chk.Content = item.Name.ToString();
+                chk.Tag = item;
                 _imageTags.Children.Add(chk);
-           }
-
+            }
         }
 
         /// <summary>
@@ -98,7 +99,7 @@ namespace VisionAPI_WPF_Samples
                 //
                 Log("Calling ComputerVisionClient.TagImageAsync()...");
                 string language = (_language.SelectedItem as RecognizeLanguage).ShortCode;
-                return await client.TagImageAsync(imageUrl, language);               
+                return await client.TagImageAsync(imageUrl, language);
             }
 
             // -----------------------------------------------------------------------
@@ -122,7 +123,7 @@ namespace VisionAPI_WPF_Samples
 
             analysisResult = null;
             analysisResult = await UploadImageAndAnalyzeTagsAsync(imageUri.AbsoluteUri);
-           
+
             _status.Text = "Analyzing Done";
 
             DynamicCreatedCheckbox(analysisResult);
@@ -130,11 +131,16 @@ namespace VisionAPI_WPF_Samples
 
         private void SubmitTagsButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
+            var tags = new List<Tag>();
             foreach (CheckBox item in _imageTags.Children)
             {
                 if (item.IsChecked == true)
                 {
-                    finalTags.Add(item.Content.ToString());
+                    tags.Add(new Tag()
+                    {
+                        TagValue = item.Content.ToString(),
+                        Confidence = ((ImageTag)(item.Tag)).Confidence
+                    });
                 }
             }
 
@@ -144,12 +150,22 @@ namespace VisionAPI_WPF_Samples
             {
                 if (!string.IsNullOrWhiteSpace(tag) && !finalTags.Contains(tag.Trim()))
                 {
-                    finalTags.Add(tag.Trim());
+                    tags.Add(new Tag()
+                    {
+                        TagValue = tag.Trim(),
+                        Confidence = 1
+                    });
                 }
-            }
 
+
+            }
             Log("Data Ready to Upload to DB");
-            //PrepareDBData();
+
+            var result = SqlHelper.SaveImage(URLTextBox.Text, tags);
+            _status.Text = result.Item1 ? "Data saved in DB" : $"Error in saving data to DB - {result.Item2}";
+
+            Log("Operation Completed");
+
         }
     }
 }
