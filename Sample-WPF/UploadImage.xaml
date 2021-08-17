@@ -29,6 +29,7 @@
             <StackPanel Orientation="Horizontal" Margin="5, 5, 0, 0">
                 <TextBox x:Name="_urlTextBox" Width="361" Margin="0, 5, 0, 0">https://ww2-secure.justanswer.com/static/th-page-sip-mobile/btc/hero/bg/general.jpg</TextBox>
                 <Button Click="SubmitUriButton_Click" Margin="5, 5, 0, 0">Analyze</Button>
+                <Button Click="SubmitTagsButton_Click" Margin="5, 5, 0, 0" Grid.Row="0" Grid.Column="3">Submit Image</Button>
             </StackPanel>
         </StackPanel>
         <Image Grid.Row="3" HorizontalAlignment="Left" Margin="5, 5, 0, 0" x:Name="_imagePreview" Width="95" Height="95" Stretch="Fill"></Image>
@@ -37,8 +38,8 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200"></ColumnDefinition>
                 <ColumnDefinition Width="110"></ColumnDefinition>
-                <ColumnDefinition Width="100"></ColumnDefinition>
-                <ColumnDefinition Width="50"></ColumnDefinition>
+                <ColumnDefinition Width="200"></ColumnDefinition>
+                <ColumnDefinition Width="200"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"></RowDefinition>
@@ -47,8 +48,7 @@
             <Label Content=" AISuggested Tags" FontSize="16" FontWeight="Bold" Grid.Row="0" Grid.Column="0"/>
             <Label Content="User Defined Tags" Grid.Row="0" Grid.Column="1"/>
             <StackPanel x:Name="_imageTags" Grid.Row="1" Grid.Column="0"/>
-            <TextBox Name="text1" Grid.Row="0" Grid.Column="2" Width="100"/>
-            <Button Click="SubmitTagsButton_Click" Margin="5, 5, 0, 0" Grid.Row="0" Grid.Column="3">Submit</Button>
+            <TextBox Name="text1" Grid.Row="0" Grid.Column="2" Width="200"/>
         </Grid>
     </Grid>
 </local:ImageScenarioPage>
