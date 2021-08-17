@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:VisionAPI_WPF_Samples"
       VerticalAlignment="Stretch"
       mc:Ignorable="d" 
-      d:DesignHeight="600" d:DesignWidth="600"
+      d:DesignHeight="800" d:DesignWidth="600"
       Title="Analyze Image">
     <Grid>
         <Grid.RowDefinitions>
@@ -15,44 +15,169 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Margin="5, 5, 0, 0" FontWeight="Bold">Generate a thumbnail for an image</TextBlock>
+        <TextBlock Grid.Row="0" Margin="5, 5, 0, 0" FontWeight="Bold">Get Images based on tag</TextBlock>
         <StackPanel Orientation="Vertical" Grid.Row="1" >
-            <TextBlock Margin="5, 5, 0, 0" Text="Set thumbnail parameters, then click either [Load Image] or paste in an image URL and click [Generate Thumbnail]"/>
+            <TextBlock Margin="5, 5, 0, 0" Text="Enter the tag then click [Get Images]"/>
 
 
-            <Grid Margin="5, 10, 0, 5">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="120" />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <TextBlock  Text="Thumbnail Width: " />
-                <TextBox Grid.Column="1" x:Name="_widthTextBox" Width="60" HorizontalAlignment="Left">250</TextBox>
-                <TextBlock Grid.Row="1" Text="Thumbnail Height: "/>
-                <TextBox Grid.Row="1"  Grid.Column="1" x:Name="_heightTextBox"  Width="60" HorizontalAlignment="Left">250</TextBox>
-                <TextBlock Grid.Row="2" Text="Use Smart Cropping: "/>
-                <CheckBox Grid.Row="2" Grid.Column="1" x:Name="_smartCroppingCheckbox" IsChecked="True" />
-            </Grid>
-
-            <Button Click="LoadImageButton_Click" Margin="5, 5, 0, 0" Width="80" HorizontalAlignment="Left" Content="Load Image"/>
+            <!--<Button Click="LoadImageButton_Click" Margin="5, 5, 0, 0" Width="80" HorizontalAlignment="Left" Content="Load Image"/>-->
             <StackPanel Orientation="Horizontal" Margin="5, 5, 0, 0">
-                <TextBox x:Name="_urlTextBox" Width="361" Margin="0, 5, 0, 0" Text="https://oxfordportal.blob.core.windows.net/vision/Thumbnail/6-1.jpg"/>
-                <Button Click="SubmitUriButton_Click" Margin="5, 5, 0, 0" Content="Generate Thumbnail"/>
+                <TextBox x:Name="_urlTextBox" Width="361" Margin="0, 5, 0, 0" />
+                <Button Click="SubmitUriButton_Click" Margin="5, 5, 0, 0" Content="Get Images"/>
             </StackPanel>
         </StackPanel>
         <TextBlock x:Name="_status" Grid.Row="2" Margin="5" FontWeight="Bold"></TextBlock>
-        <Grid  Grid.Row="3" Margin="5, 5, 0, 0">
+        
+        <Grid  Grid.Row="3" Margin="5, 5, 0, 0" Visibility="Hidden" x:Name="_imagesGrid">
+            <FlowDocumentReader>
+                <FlowDocument>
+                    <Table CellSpacing="5" x:Name="_tableGroup1">
+
+                        <Table.Columns>
+                            <TableColumn/>
+                            <TableColumn/>
+                            <TableColumn/>
+                            <TableColumn/>
+                        </Table.Columns>
+
+                        <TableRowGroup x:Name="_tableGroup">
+                            <!--<TableRow Background="SkyBlue">
+                                <TableCell ColumnSpan="4" TextAlignment="Center">
+                                    <Paragraph FontSize="24pt" FontWeight="Bold">Result</Paragraph>
+                                </TableCell>
+                            </TableRow>-->
+                            <!-- Header row for the table. -->
+                            <!--<TableRow Background="SkyBlue">
+                                <TableCell>
+                                    <Paragraph FontSize="14pt" FontWeight="Bold">Image url</Paragraph>
+                                </TableCell>
+                                <TableCell>
+                                    <Paragraph FontSize="14pt" FontWeight="Bold">Image</Paragraph>
+                                </TableCell>
+                                <TableCell>
+                                    <Paragraph FontSize="14pt" FontWeight="Bold">Tags</Paragraph>
+                                </TableCell>
+                            </TableRow>-->
+
+                            <!--<TableRow>
+                                <TableCell>
+                                    <Paragraph>
+                                        <TextBlock x:Name="_imageUrl1">https://ww2-secure.justanswer.com/static/th-page-sip-mobile/btc/hero/bg/general.jpg
+                                        </TextBlock>
+                                    </Paragraph>
+                                </TableCell>
+                                <TableCell>
+                                    <Paragraph>
+                                        <Image x:Name="_imagePreview1" Height="100" Width="100" Source="https://ww2-secure.justanswer.com/static/th-page-sip-mobile/btc/hero/bg/general.jpg"></Image>
+                                    </Paragraph>
+                                </TableCell>
+                                <TableCell>
+                                    <Paragraph><TextBlock x:Name="_imageTags1">Tag1, Tag2</TextBlock></Paragraph>
+                                </TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell>
+                                    <Paragraph>
+                                            <TextBlock x:Name="_imageUrl2">https://ww2-secure.justanswer.com/static/th-page-sip-mobile/btc/hero/bg/pet.jpg
+                                            </TextBlock>
+                                        </Paragraph>
+                                    </TableCell>
+                                <TableCell>
+                                    <Paragraph>
+                                        <Image x:Name="_imagePreview2"  Height="100" Width="100"  Grid.Row="1" Margin="5"  Source="https://ww2-secure.justanswer.com/static/th-page-sip-mobile/btc/hero/bg/pet.jpg"></Image>
+                                    </Paragraph>
+                                </TableCell>
+                                <TableCell>
+                                    <Paragraph>
+                                        <TextBlock x:Name="_imageTags2">Tag1, Tag2</TextBlock>
+                                    </Paragraph>
+                                </TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell>
+                                    <Paragraph>
+                                        <TextBlock x:Name="_imageUrl3">https://ww2-secure.justanswer.com/static/th-page-sip-mobile/btc/hero/bg/tech.jpg
+                                        </TextBlock>
+                                    </Paragraph>
+                                </TableCell>
+                                <TableCell>
+                                    <Paragraph>
+                                        <Image x:Name="_imagePreview3"  Height="100" Width="100"  Grid.Row="2" Margin="5" Source="https://ww2-secure.justanswer.com/static/th-page-sip-mobile/btc/hero/bg/tech.jpg"></Image>
+                                    </Paragraph>
+                                </TableCell>
+                                <TableCell>
+                                    <Paragraph>
+                                        <TextBlock x:Name="_imageTags3">Tag1, Tag2</TextBlock>
+                                    </Paragraph>
+                                </TableCell>
+                            </TableRow>
+                            <TableRow Background="lightgray">
+                                <TableCell>
+                                    <Paragraph>
+                                        <TextBlock x:Name="_imageUrl4">https://ww2-secure.justanswer.com/static/fe/th-page-sip-tablet/heroImgs/homework.jpg
+                                        </TextBlock>
+                                    </Paragraph>
+                                </TableCell>
+                                <TableCell>
+                                    <Paragraph>
+                                        <Image x:Name="_imagePreview4"  Height="100" Width="100"  Grid.Row="3" Margin="5" Source="https://ww2-secure.justanswer.com/static/fe/th-page-sip-tablet/heroImgs/homework.jpg"></Image>
+                                    </Paragraph>
+                                </TableCell>
+                                <TableCell>
+                                    <Paragraph>
+                                        <TextBlock x:Name="_imageTags4">Tag1, Tag2</TextBlock>
+                                    </Paragraph>
+                                </TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell>
+                                    <Paragraph>
+                                        <TextBlock x:Name="_imageUrl5">https://ww2-secure.justanswer.com/static/th-page-sip-mobile/btc/hero/bg/med.jpg
+                                        </TextBlock>
+                                    </Paragraph>
+                                </TableCell>
+                                <TableCell>
+                                    <Paragraph>
+                                        <Image x:Name="_imagePreview5"  Height="100" Width="100"  Grid.Row="4" Margin="5" Source="https://ww2-secure.justanswer.com/static/th-page-sip-mobile/btc/hero/bg/med.jpg"></Image>
+                                    </Paragraph>
+                                </TableCell>
+                                <TableCell>
+                                    <Paragraph>
+                                        <TextBlock x:Name="_imageTags5">Tag1, Tag2</TextBlock>
+                                    </Paragraph>
+                                </TableCell>
+                            </TableRow>-->
+                        </TableRowGroup>
+                    </Table>
+                </FlowDocument>
+            </FlowDocumentReader>
+            <!--<Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
-                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="100"/>
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Image x:Name="_imagePreview"></Image>
-            <Image x:Name="_thumbPreview" Grid.Column="2" Stretch="None"></Image>
+            <Image x:Name="_imagePreview1" Height="100" Width="100" Grid.Row="0" Margin="5" Source="https://ww2-secure.justanswer.com/static/th-page-sip-mobile/btc/hero/bg/general.jpg"></Image>
+            <TextBlock x:Name="_imageTags1" Grid.Row="0" Grid.Column="1" Padding="0,50">Tag1, Tag2</TextBlock>
+            <Image x:Name="_imagePreview2"  Height="100" Width="100"  Grid.Row="1" Margin="5"  Source="https://ww2-secure.justanswer.com/static/th-page-sip-mobile/btc/hero/bg/pet.jpg"></Image>
+            <TextBlock x:Name="_imageTags2" Grid.Row="1" Grid.Column="1" Padding="0,50">Tag1, Tag2</TextBlock>
+            <Image x:Name="_imagePreview3"  Height="100" Width="100"  Grid.Row="2" Margin="5" Source="https://ww2-secure.justanswer.com/static/th-page-sip-mobile/btc/hero/bg/tech.jpg"></Image>
+            <TextBlock x:Name="_imageTags3" Grid.Row="2"  Grid.Column="1" Padding="0,50">Tag1, Tag2</TextBlock>
+            <Image x:Name="_imagePreview4"  Height="100" Width="100"  Grid.Row="3" Margin="5" Source="https://ww2-secure.justanswer.com/static/fe/th-page-sip-tablet/heroImgs/homework.jpg"></Image>
+            <TextBlock x:Name="_imageTags4"  Grid.Row="3" Grid.Column="1" Padding="0,50" >Tag1, Tag2</TextBlock>
+            <Image x:Name="_imagePreview5"  Height="100" Width="100"  Grid.Row="4" Margin="5" Source="https://ww2-secure.justanswer.com/static/th-page-sip-mobile/btc/hero/bg/med.jpg"></Image>
+            <TextBlock x:Name="_imageTags5" Grid.Row="4" Grid.Column="1" Padding="0,50">Tag1, Tag2</TextBlock>-->
         </Grid>
+
+
     </Grid>
 </local:ImageScenarioPage>
