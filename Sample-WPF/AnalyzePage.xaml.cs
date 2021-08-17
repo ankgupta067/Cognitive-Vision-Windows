@@ -33,8 +33,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.Data.SQLite;
 using System.IO;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 // -----------------------------------------------------------------------
@@ -174,6 +176,23 @@ namespace VisionAPI_WPF_Samples
             Log("");
             Log("Analysis Result:");
             LogAnalysisResult(analysisResult);
+        }
+
+        private void SaveTags_Click(object sender, RoutedEventArgs e)
+        {
+            Log("save tags");
+
+            var tags = new List<Tag>()
+            {
+                new Tag()
+                {
+                    Confidence = .99,
+                    TagValue = "people"
+                }
+            };
+
+            SqlHelper.SaveImage(URLTextBox.Text, tags);
+            _status.Text = "called save tags";
         }
     }
 }

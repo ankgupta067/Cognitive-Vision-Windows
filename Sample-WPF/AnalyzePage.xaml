@@ -51,6 +51,8 @@
             <StackPanel Orientation="Horizontal" Margin="5, 5, 0, 0">
                 <TextBox x:Name="_urlTextBox" Width="361" Margin="0, 5, 0, 0">https://oxfordportal.blob.core.windows.net/vision/Analysis/1-1.jpg</TextBox>
                 <Button Click="SubmitUriButton_Click" Margin="5, 5, 0, 0">Analyze</Button>
+                <Button Click="SaveTags_Click" Margin="5, 5, 0, 0">Save Tags</Button>
+
             </StackPanel>
         </StackPanel>
         <Image Grid.Row="3" Margin="5, 5, 0, 0" x:Name="_imagePreview"></Image>
