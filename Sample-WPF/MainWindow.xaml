@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:VisionAPI_WPF_Samples"
         xmlns:sampleUtil="clr-namespace:SampleUserControlLibrary;assembly=SampleUserControlLibrary"
         mc:Ignorable="d"
-        Title="Relevant Image Finder" Height="800" Width="1000">
+        Title="Image Analyzer And Recommender" Height="800" Width="1000">
     <Grid>
         <sampleUtil:SampleScenarios x:Name="_scenariosControl"/>
     </Grid>

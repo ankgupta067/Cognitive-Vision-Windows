@@ -76,6 +76,7 @@ namespace VisionAPI_WPF_Samples
                 chk.Content = item.Name.ToString();
                 chk.Tag = item;
                 _imageTags.Children.Add(chk);
+                chk.IsChecked = true;
             }
 
         }
