@@ -6,14 +6,14 @@ The Vision Client Library is here for archival purpose only.  .NET users are ask
 
 For users interested in client libraries for other languages/platforms, quickstarts, etc., please see the official documentation [page](https://docs.microsoft.com/en-us/azure/cognitive-services/computer-vision/).
 
-:exclamation::exclamation::exclamation:
+::exclamation::exclamation:
 
 This repo contains the Windows client library & sample for the Microsoft Computer Vision API, an offering within [Microsoft Cognitive Services](https://www.microsoft.com/cognitive-services), formerly known as Project Oxford.
 * [Learn about the Computer Vision API](https://www.microsoft.com/cognitive-services/en-us/computer-vision-api)
 * [Read the documentation](https://www.microsoft.com/cognitive-services/en-us/computer-vision-api/documentation)
 * [Find more SDKs & Samples](https://www.microsoft.com/cognitive-services/en-us/SDK-Sample?api=computer%20vision)
 
-## The Client Library
+
 The client library is a thin C\# client wrapper for the Computer Vision API.
 
 The easiest way to use this client library is to get microsoft.projectoxford.vision package from [nuget](<http://nuget.org>). Go to [Vision API Package in nuget](https://www.nuget.org/packages/Microsoft.Azure.CognitiveServices.Vision.ComputerVision/) for more details.
