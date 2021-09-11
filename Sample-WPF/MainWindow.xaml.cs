@@ -56,17 +56,18 @@ namespace VisionAPI_WPF_Samples
             //
             // Initialize SampleScenarios User Control with titles and scenario pages.
             //
-            _scenariosControl.SampleTitle = "Vision API";
+            _scenariosControl.SampleTitle = "Image Analyzer And Recommender";
             _scenariosControl.SampleScenarioList = new Scenario[]
             {
-                new Scenario { Title = "Analyze Image", PageClass = typeof(AnalyzePage) },
-                new Scenario { Title = "Analyze Image with Domain Model", PageClass = typeof(AnalyzeInDomainPage) },
-                new Scenario { Title = "Describe Image", PageClass = typeof(DescribePage) },
-                new Scenario { Title = "Generate Tags", PageClass = typeof(TagsPage) },
-                new Scenario { Title = "Recognize Text (OCR)", PageClass = typeof(OCRPage) },
-                new Scenario { Title = "Recognize Text V2 (English)", PageClass = typeof(TextRecognitionPage) },
-                new Scenario { Title = "Get Thumbnail", PageClass = typeof(ThumbnailPage) },
-                new Scenario { Title = "Get AreaOfInterest", PageClass = typeof(AreaOfInterestPage) },
+                //new Scenario { Title = "Analyze Image", PageClass = typeof(AnalyzePage) },
+                //new Scenario { Title = "Analyze Image with Domain Model", PageClass = typeof(AnalyzeInDomainPage) },
+                //new Scenario { Title = "Describe Image", PageClass = typeof(DescribePage) },
+                //new Scenario { Title = "Generate Tags", PageClass = typeof(TagsPage) },
+                //new Scenario { Title = "Recognize Text (OCR)", PageClass = typeof(OCRPage) },
+                //new Scenario { Title = "Recognize Text V2 (English)", PageClass = typeof(TextRecognitionPage) },
+                new Scenario { Title = "Analyze Image", PageClass = typeof(UploadImage) },
+                new Scenario { Title = "Get Images", PageClass = typeof(ThumbnailPage) },
+                //new Scenario { Title = "Get AreaOfInterest", PageClass = typeof(AreaOfInterestPage) },
             };
         }
     }
