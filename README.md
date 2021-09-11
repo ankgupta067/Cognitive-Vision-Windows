@@ -1,4 +1,4 @@
-# Microsoft Computer Vision API: Windows Client Library & Sample
+# Microsoft Computer: Windows Client Library & Sample
 
 :exclamation::exclamation::exclamation:
 
