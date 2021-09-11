@@ -13,7 +13,7 @@ This repo contains the Windows client library & sample for the Microsoft Compute
 * [Read the documentation](https://www.microsoft.com/cognitive-services/en-us/computer-vision-api/documentation)
 * [Find more SDKs & Samples](https://www.microsoft.com/cognitive-services/en-us/SDK-Sample?api=computer%20vision)
 
-## The Client Library
+
 The client library is a thin C\# client wrapper for the Computer Vision API.
 
 The easiest way to use this client library is to get microsoft.projectoxford.vision package from [nuget](<http://nuget.org>). Go to [Vision API Package in nuget](https://www.nuget.org/packages/Microsoft.Azure.CognitiveServices.Vision.ComputerVision/) for more details.
