@@ -6,7 +6,7 @@ The Vision Client Library is here for archival purpose only.  .NET users are ask
 
 For users interested in client libraries for other languages/platforms, quickstarts, etc., please see the official documentation [page](https://docs.microsoft.com/en-us/azure/cognitive-services/computer-vision/).
 
-:exclamation::exclamation::exclamation:
+::exclamation::exclamation:
 
 This repo contains the Windows client library & sample for the Microsoft Computer Vision API, an offering within [Microsoft Cognitive Services](https://www.microsoft.com/cognitive-services), formerly known as Project Oxford.
 * [Learn about the Computer Vision API](https://www.microsoft.com/cognitive-services/en-us/computer-vision-api)
